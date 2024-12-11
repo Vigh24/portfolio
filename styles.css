@@ -104,6 +104,14 @@ section {
     width: 100%;
     overflow: hidden;
     flex-shrink: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 h2 {
@@ -129,6 +137,12 @@ h2 {
     box-shadow: none;
     transition: all 0.3s ease;
     animation: scaleIn 0.5s ease-out;
+    animation: slideInFromLeft 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.skill-card:nth-child(even) {
+    animation: slideInFromRight 0.6s ease-out forwards;
 }
 
 .skill-card:hover {
@@ -1061,4 +1075,53 @@ main {
     body {
         padding-bottom: 60px;
     }
+}
+
+/* Add new animations */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    }
+}
+
+/* Apply new animations to elements */
+.skill-card {
+    animation: slideInFromLeft 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.skill-card:nth-child(even) {
+    animation: slideInFromRight 0.6s ease-out forwards;
+}
+
+.cta-button {
+    animation: pulseGlow 2s infinite;
 }

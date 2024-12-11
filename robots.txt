@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vighnesh-patil.vercel.app/sitemap.xml 

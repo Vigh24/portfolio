@@ -39,14 +39,28 @@ form.addEventListener('submit', (e) => {
     form.reset();
 });
 
-// Scroll progress indicator
-window.addEventListener('scroll', () => {
+// Optimize scroll event handling with throttling
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
+}
+
+// Apply throttling to scroll handlers
+window.addEventListener('scroll', throttle(() => {
     const scrollProgress = document.querySelector('.scroll-progress');
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = window.scrollY;
     const progress = (scrolled / scrollable) * 100;
     scrollProgress.style.width = `${progress}%`;
-});
+}, 50));
 
 // Custom cursor
 const cursor = document.querySelector('.cursor');
@@ -58,21 +72,31 @@ document.addEventListener('mousemove', (e) => {
 document.addEventListener('mousedown', () => cursor.classList.add('active'));
 document.addEventListener('mouseup', () => cursor.classList.remove('active'));
 
-// Animate elements on scroll
+// Optimize intersection observer
 const observerOptions = {
-    threshold: 0.1
+    threshold: 0.1,
+    rootMargin: '50px'
 };
 
+// Use a single observer for all elements
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            // Unobserve after animation to save resources
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-document.querySelectorAll('.project-card, .skill-card').forEach((el) => {
+// Observe all animated elements
+document.querySelectorAll('.project-card, .skill-card, section').forEach((el) => {
     observer.observe(el);
+});
+
+// Lazy load images
+document.querySelectorAll('img').forEach(img => {
+    img.loading = 'lazy';
 });
 
 // Add hover animation to nav links
