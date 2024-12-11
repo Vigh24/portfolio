@@ -1294,3 +1294,43 @@ body {
 [data-theme="light"] .theme-toggle i::before {
     content: "\f186"; /* Moon icon */
 }
+
+/* Add to your dark mode styles */
+[data-theme="dark"] .stat-item,
+[data-theme="dark"] .hero-stats .stat {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+}
+
+[data-theme="dark"] .stat-number {
+    color: #007bff;  /* Keep the blue color for emphasis */
+}
+
+[data-theme="dark"] .stat-label {
+    color: var(--stat-label-color);
+}
+
+/* Update the base styles for stats */
+.stat-item,
+.hero-stats .stat {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #007bff;
+    display: block;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-top: 0.5rem;
+}
