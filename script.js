@@ -574,16 +574,14 @@ function showPrivateProjectMessage(project) {
 } 
 
 // Dark mode toggle with proper initialization
-const themeToggle = document.querySelector('.theme-toggle');
-const icon = themeToggle.querySelector('i');
+const themeToggle = document.querySelector('.switch-name .checkbox');
 
 // Function to set theme
 function setTheme(theme) {
     document.body.dataset.theme = theme;
     localStorage.setItem('theme', theme);
-    // Update icon
-    icon.classList.remove('fa-sun', 'fa-moon');
-    icon.classList.add(theme === 'dark' ? 'fa-sun' : 'fa-moon');
+    // Update checkbox state
+    themeToggle.checked = theme === 'light';
     // Update particles
     updateParticleColors(theme);
 }
@@ -593,8 +591,8 @@ const savedTheme = localStorage.getItem('theme') || 'light';
 setTheme(savedTheme);
 
 // Toggle theme on click
-themeToggle.addEventListener('click', () => {
-    const newTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+themeToggle.addEventListener('change', () => {
+    const newTheme = themeToggle.checked ? 'light' : 'dark';
     setTheme(newTheme);
 }); 
 
