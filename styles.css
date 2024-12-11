@@ -968,3 +968,89 @@ main {
 .contact-form {
     margin-bottom: 2rem;
 }
+
+/* Update footer styles */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 80px;
+    z-index: 10;
+}
+
+/* Update main content wrapper */
+main {
+    flex: 1 0 auto;
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-bottom: 80px;
+}
+
+/* Update contact section */
+.contact {
+    padding: 5rem 2rem;
+    margin-bottom: 80px;
+}
+
+/* Update mobile styles */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 80px;
+    }
+
+    main {
+        min-height: calc(100vh - 80px);
+        padding-bottom: 0;
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        height: 80px;
+        padding: 1rem;
+    }
+
+    .contact {
+        margin-bottom: 100px;
+        padding-bottom: 1rem;
+    }
+
+    .social-links {
+        margin-bottom: 0.5rem;
+    }
+
+    footer p {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    footer .social-links a {
+        font-size: 1.2rem;
+        margin: 0 0.5rem;
+    }
+}
+
+/* Add this to handle very small screens */
+@media (max-width: 320px) {
+    footer {
+        height: 60px;
+        padding: 0.5rem;
+    }
+
+    .contact {
+        margin-bottom: 80px;
+    }
+
+    body {
+        padding-bottom: 60px;
+    }
+}
