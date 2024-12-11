@@ -20,7 +20,4 @@ Thumbs.db
 # Debug logs
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
-
-# Project images
-project-images/ 
+yarn-error.log* 
