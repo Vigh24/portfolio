@@ -380,11 +380,9 @@ footer {
     text-align: center;
     padding: 2rem;
     width: 100%;
-    position: fixed;
-    bottom: 0;
+    position: relative;
     left: 0;
-    height: 80px;
-    z-index: 10;
+    margin-top: auto;
 }
 
 .social-links {
@@ -941,8 +939,8 @@ main {
 
 @media (max-width: 768px) {
     main {
-        min-height: 100vh;
-        padding-bottom: 80px;
+        min-height: unset;
+        padding-bottom: 0;
     }
 
     section {
@@ -955,13 +953,27 @@ main {
     }
 
     footer {
-        position: fixed;
-        bottom: 0;
-        height: 80px;
+        position: relative;
+        padding: 1rem;
     }
 
     .contact {
-        margin-bottom: 100px;
+        padding-bottom: 2rem;
+        margin-bottom: 0;
+    }
+
+    .social-links {
+        margin-bottom: 0.5rem;
+    }
+
+    footer p {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    footer .social-links a {
+        font-size: 1.2rem;
+        margin: 0 0.5rem;
     }
 }
 
@@ -976,11 +988,9 @@ footer {
     text-align: center;
     padding: 2rem;
     width: 100%;
-    position: fixed;
-    bottom: 0;
+    position: relative;
     left: 0;
-    height: 80px;
-    z-index: 10;
+    margin-top: auto;
 }
 
 /* Update main content wrapper */
@@ -998,7 +1008,7 @@ main {
 /* Update contact section */
 .contact {
     padding: 5rem 2rem;
-    margin-bottom: 80px;
+    margin-bottom: 0;
 }
 
 /* Update mobile styles */
@@ -1008,20 +1018,18 @@ main {
     }
 
     main {
-        min-height: calc(100vh - 80px);
+        min-height: unset;
         padding-bottom: 0;
     }
 
     footer {
-        position: fixed;
-        bottom: 0;
-        height: 80px;
+        position: relative;
         padding: 1rem;
     }
 
     .contact {
-        margin-bottom: 100px;
-        padding-bottom: 1rem;
+        padding-bottom: 2rem;
+        margin-bottom: 0;
     }
 
     .social-links {
