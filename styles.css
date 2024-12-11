@@ -1197,15 +1197,16 @@ main {
 /* Dark mode styles */
 [data-theme="dark"] {
     --bg-color: #121212;  /* Darker background */
-    --text-color: #ffffff;
+    --text-color: #ffffff;  /* Brighter white for better contrast */
     --card-bg: #1e1e1e;   /* Slightly lighter than background */
     --border-color: #333333;
     --heading-color: #ffffff;
     --nav-bg: #1e1e1e;
     --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --stat-label-color: #a0a0a0;  /* Lighter gray for better readability */
+    --stat-label-color: #e0e0e0;  /* Lighter gray for better readability */
     --tech-stack-bg: #2d2d2d;     /* Darker background for tech stack items */
     --tech-stack-color: #007bff;   /* Keep the blue color for contrast */
+    --secondary-text: #a0a0a0;  /* For less important text */
 }
 
 /* Update specific dark mode styles */
@@ -1303,11 +1304,12 @@ body {
     position: relative;
     border-radius: 5em;
     cursor: pointer;
-    width: 80px;
-    height: 40px;
+    width: 60px;  /* Slightly smaller width */
+    height: 30px;  /* Slightly smaller height */
     overflow: hidden;
     transition: all .5s;
     margin-left: 1rem;
+    z-index: 1001;  /* Ensure it's above other elements */
 }
 
 .switch-name .back {
@@ -1343,7 +1345,7 @@ body {
     left: 0;
     top: 0;
     height: 100%;
-    padding: .4em;
+    padding: .3em;  /* Slightly smaller padding */
     fill: var(--moon);
     transition: .5s;
 }
@@ -1353,7 +1355,7 @@ body {
     left: 0;
     top: 0;
     height: 100%;
-    padding: .4em;
+    padding: .3em;  /* Slightly smaller padding */
     fill: var(--sun);
     transition: .5s;
     opacity: 0;
@@ -1405,3 +1407,33 @@ body {
 }
 
 /* comment */
+
+/* Mobile adjustments for theme toggle */
+@media (max-width: 768px) {
+    .switch-name {
+        position: fixed;
+        right: 70px;  /* Give space from burger menu */
+        top: 15px;
+        margin: 0;
+        transform: scale(0.8);  /* Make it slightly smaller on mobile */
+    }
+
+    .nav-links {
+        padding-top: 60px;  /* Give space for the toggle and burger */
+    }
+}
+
+/* Ensure text is readable in dark mode */
+[data-theme="dark"] .nav-links a,
+[data-theme="dark"] .hero-content p,
+[data-theme="dark"] .about-text,
+[data-theme="dark"] .skill-card p,
+[data-theme="dark"] .project-card p {
+    color: #e0e0e0;  /* Light gray for better readability */
+}
+
+[data-theme="dark"] .hero-content h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] .project-card h3 {
+    color: #ffffff;  /* Pure white for headings */
+}
