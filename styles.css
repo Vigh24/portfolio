@@ -6,9 +6,12 @@
 }
 
 html, body {
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
     width: 100%;
     position: relative;
+    height: 100%;
 }
 
 body {
@@ -21,6 +24,7 @@ body {
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
+    max-height: 100vh;
 }
 
 /* Navbar Styles */
@@ -95,11 +99,11 @@ body {
 
 /* Sections Common Styles */
 section {
-    padding: 5rem 2rem;
     position: relative;
     z-index: 1;
     width: 100%;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 h2 {
@@ -376,8 +380,9 @@ footer {
     text-align: center;
     padding: 2rem;
     width: 100%;
-    position: relative;
-    margin-top: auto;
+    position: sticky;
+    bottom: 0;
+    left: 0;
     flex-shrink: 0;
     z-index: 10;
 }
@@ -909,9 +914,10 @@ footer {
 
 /* Update main content wrapper if needed */
 main {
-    flex: 1;
+    flex: 1 0 auto;
     width: 100%;
     overflow-x: hidden;
-    min-height: 0;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
