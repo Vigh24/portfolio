@@ -47,5 +47,5 @@ portfolio/
 ## Contact
 
 - Email: vigneshpatil2486@gmail.com
-- LinkedIn: [Vighnesh Patil](www.linkedin.com/in/vighneshpatil2410)
+- LinkedIn: [Vighnesh Patil](https://www.linkedin.com/in/vighneshpatil2410)
 - Portfolio: [Live Demo](https://vighnesh-patil.vercel.app)
