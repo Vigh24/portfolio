@@ -1125,3 +1125,38 @@ main {
 .cta-button {
     animation: pulseGlow 2s infinite;
 }
+
+/* Update project buttons for better mobile layout */
+@media (max-width: 768px) {
+    .project-links {
+        flex-direction: column;  /* Stack buttons vertically on mobile */
+        gap: 0.8rem;
+        width: 100%;
+    }
+    
+    .project-button {
+        width: 100%;  /* Full width buttons */
+        min-width: unset;
+        padding: 0.8rem;
+        font-size: 0.9rem;
+        justify-content: center;
+    }
+    
+    .details-button {
+        width: 100%;  /* Make details button full width too */
+    }
+
+    .project-card {
+        padding: 1.5rem;  /* Slightly reduce padding on mobile */
+    }
+
+    .tech-stack {
+        gap: 0.5rem;  /* Reduce gap between tech stack items */
+        margin-bottom: 1.5rem;
+    }
+
+    .tech-stack span {
+        padding: 0.4rem 0.8rem;  /* Slightly reduce padding of tech stack items */
+        font-size: 0.8rem;
+    }
+}
