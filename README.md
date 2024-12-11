@@ -43,6 +43,11 @@ portfolio/
 ├── README.md
 └── .gitignore
 
+## Project Images
+The project uses images stored in the `project-images/` directory:
+- dashboard-dark.png - IoT Dashboard screenshot
+- softphone.PNG - VoIP Application screenshot
+- apni-bhasha.png - Translation App screenshot
 
 ## Contact
 
