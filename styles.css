@@ -380,8 +380,7 @@ footer {
     text-align: center;
     padding: 2rem;
     width: 100%;
-    position: sticky;
-    bottom: 0;
+    position: relative;
     left: 0;
     flex-shrink: 0;
     z-index: 10;
@@ -920,4 +919,35 @@ main {
     position: relative;
     display: flex;
     flex-direction: column;
+    min-height: calc(100vh - 80px);
+}
+
+@media (max-width: 768px) {
+    main {
+        min-height: calc(100vh - 60px);
+    }
+
+    section {
+        padding: 3rem 1rem;
+        min-height: auto;
+    }
+
+    .hero {
+        min-height: calc(100vh - 60px);
+    }
+
+    footer {
+        position: relative;
+        bottom: auto;
+        margin-top: auto;
+    }
+
+    .contact {
+        padding-bottom: 2rem;
+        margin-bottom: 0;
+    }
+}
+
+.contact-form {
+    margin-bottom: 2rem;
 }
