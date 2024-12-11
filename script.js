@@ -651,7 +651,7 @@ themeToggle.addEventListener('change', () => {
     setTheme(newTheme);
 }); 
 
-// Update particle colors based on theme
+// Update particle colors based on theme with enhanced effects
 function updateParticleColors(theme) {
     const color = theme === 'dark' ? '#ffffff' : '#007bff';
     const opacity = theme === 'dark' ? 0.3 : 0.5;
@@ -662,6 +662,7 @@ function updateParticleColors(theme) {
         particles.line_linked.color = color;
         particles.line_linked.opacity = opacity;
         particles.move.speed = theme === 'dark' ? 1.5 : 2;
+        particles.size.value = theme === 'dark' ? 2.5 : 3;
         
         // Update existing particles
         window.pJSDom[0].pJS.fn.particlesRefresh();
@@ -691,3 +692,8 @@ const githubActivity = {
     username: 'Vigh24',
     container: '#github-graph'
 };
+
+// Enhance floating icon animation
+document.querySelectorAll('.floating-icons i').forEach((icon, index) => {
+    icon.style.animationDelay = `${index * 0.5}s`;
+});
