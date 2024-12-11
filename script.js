@@ -667,3 +667,27 @@ function updateParticleColors(theme) {
         window.pJSDom[0].pJS.fn.particlesRefresh();
     }
 } 
+
+// Add an interactive experience timeline
+const timeline = {
+    items: [
+        {
+            date: '2023',
+            title: 'Full Stack Developer',
+            description: 'Working on IoT and Web projects'
+        },
+        // Add more timeline items
+    ]
+}; 
+
+// Add a radar chart for skills visualization
+const skillChart = {
+    labels: ['Frontend', 'Backend', 'DevOps', 'Mobile', 'IoT'],
+    data: [90, 85, 75, 80, 85]
+}; 
+
+// Add GitHub activity heatmap
+const githubActivity = {
+    username: 'Vigh24',
+    container: '#github-graph'
+};
