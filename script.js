@@ -584,6 +584,8 @@ function setTheme(theme) {
     // Update icon
     icon.classList.remove('fa-sun', 'fa-moon');
     icon.classList.add(theme === 'dark' ? 'fa-sun' : 'fa-moon');
+    // Update particles
+    updateParticleColors(theme);
 }
 
 // Check for saved theme
@@ -595,3 +597,17 @@ themeToggle.addEventListener('click', () => {
     const newTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
 }); 
+
+// Update particle colors based on theme
+function updateParticleColors(theme) {
+    const color = theme === 'dark' ? '#ffffff' : '#007bff';
+    const opacity = theme === 'dark' ? 0.3 : 0.5;
+    
+    if (window.pJSDom && window.pJSDom[0]) {
+        const particles = window.pJSDom[0].pJS.particles;
+        particles.color.value = color;
+        particles.line_linked.color = color;
+        particles.line_linked.opacity = opacity;
+        particles.move.speed = theme === 'dark' ? 1.5 : 2; // Slightly slower in dark mode
+    }
+} 

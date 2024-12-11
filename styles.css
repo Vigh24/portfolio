@@ -1185,13 +1185,43 @@ main {
 
 /* Dark mode styles */
 [data-theme="dark"] {
-    --bg-color: #1a1a1a;
+    --bg-color: #121212;  /* Darker background */
     --text-color: #ffffff;
-    --card-bg: #2d2d2d;
-    --border-color: #404040;
+    --card-bg: #1e1e1e;   /* Slightly lighter than background */
+    --border-color: #333333;
     --heading-color: #ffffff;
-    --nav-bg: #2d2d2d;
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --nav-bg: #1e1e1e;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --stat-label-color: #a0a0a0;  /* Lighter gray for better readability */
+    --tech-stack-bg: #2d2d2d;     /* Darker background for tech stack items */
+    --tech-stack-color: #007bff;   /* Keep the blue color for contrast */
+}
+
+/* Update specific dark mode styles */
+[data-theme="dark"] .stat-label {
+    color: var(--stat-label-color);
+}
+
+[data-theme="dark"] .tech-stack span {
+    background: var(--tech-stack-bg);
+    color: var(--tech-stack-color);
+}
+
+[data-theme="dark"] .project-card::before {
+    opacity: 0.8;  /* Make the gradient line slightly less intense */
+}
+
+[data-theme="dark"] .navbar {
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .floating-icons i {
+    opacity: 0.8;  /* Slightly reduce icon opacity in dark mode */
+}
+
+/* Add smooth transition for theme switching */
+body, .navbar, .skill-card, .project-card, .tech-stack span {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 [data-theme="light"] {
