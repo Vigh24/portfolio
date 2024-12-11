@@ -430,16 +430,24 @@ function showProjectDetails(details) {
     };
 } 
 
-function showPrivateProjectMessage() {
+function showPrivateProjectMessage(project) {
     const modal = document.createElement('div');
     modal.className = 'modal';
+    const content = project === 'opcua' ? {
+        title: 'OPC UA Simulation System',
+        message: 'This OPC UA Simulation System was developed as part of a company project and the source code is maintained under a confidential agreement.'
+    } : {
+        title: 'VoIP Softphone Application',
+        message: 'This VoIP Softphone Application was developed as part of a company project and the source code is maintained under a confidential agreement.'
+    };
+
     modal.innerHTML = `
         <div class="modal-content private-project-notice">
             <span class="close-modal">&times;</span>
             <div class="project-details">
-                <h3>Private Project Repository</h3>
+                <h3>${content.title} - Private Repository</h3>
                 <div class="project-details-section">
-                    <p>This VoIP Softphone Application was developed as part of a company project and the source code is maintained under a confidential agreement.</p>
+                    <p>${content.message}</p>
                     <p>While I cannot share the actual code, I'm happy to discuss:</p>
                     <ul>
                         <li>The technical architecture and design decisions</li>
