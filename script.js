@@ -112,33 +112,104 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
-// Typing animation for hero section
-const text = "I'm a Full Stack Developer";
-const typingElement = document.querySelector('.hero-content p:first-of-type');
-typingElement.textContent = '';
+// Enhanced typing animation
+class TypeWriter {
+    constructor(txtElement, words, wait = 3000) {
+        this.txtElement = txtElement;
+        this.words = words;
+        this.txt = '';
+        this.wordIndex = 0;
+        this.wait = parseInt(wait, 10);
+        this.type();
+        this.isDeleting = false;
+    }
 
-let charIndex = 0;
-function typeText() {
-    if(charIndex < text.length) {
-        typingElement.textContent += text.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeText, 100);
+    type() {
+        const current = this.wordIndex % this.words.length;
+        const fullTxt = this.words[current];
+
+        if(this.isDeleting) {
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.txtElement.innerHTML = `<span class="txt">${this.txt}</span>`;
+
+        let typeSpeed = 100;
+
+        if(this.isDeleting) {
+            typeSpeed /= 2;
+        }
+
+        if(!this.isDeleting && this.txt === fullTxt) {
+            typeSpeed = this.wait;
+            this.isDeleting = true;
+        } else if(this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            this.wordIndex++;
+            typeSpeed = 500;
+        }
+
+        setTimeout(() => this.type(), typeSpeed);
     }
 }
 
-setTimeout(typeText, 1000);
+// Init on DOM Load
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+    const txtElement = document.querySelector('.txt-type');
+    const words = JSON.parse(txtElement.getAttribute('data-words'));
+    const wait = txtElement.getAttribute('data-wait');
+    new TypeWriter(txtElement, words, wait);
+}
 
 // Add particle background
 particlesJS('particles-js', {
     particles: {
         number: { value: 80 },
         color: { value: '#007bff' },
-        shape: { type: 'circle' },
-        opacity: { value: 0.5 },
-        size: { value: 3 },
+        shape: {
+            type: 'circle',
+            stroke: { width: 0 },
+            polygon: { nb_sides: 5 }
+        },
+        opacity: {
+            value: 0.5,
+            random: true,
+            animation: { enable: true, speed: 1 }
+        },
+        size: {
+            value: 3,
+            random: true
+        },
+        line_linked: {
+            enable: true,
+            distance: 150,
+            color: '#007bff',
+            opacity: 0.4,
+            width: 1
+        },
         move: {
             enable: true,
-            speed: 2
+            speed: 2,
+            direction: 'none',
+            random: true,
+            out_mode: 'bounce'
+        }
+    },
+    interactivity: {
+        detect_on: 'canvas',
+        events: {
+            onhover: {
+                enable: true,
+                mode: 'repulse'
+            },
+            onclick: {
+                enable: true,
+                mode: 'push'
+            }
         }
     }
 }); 
@@ -501,3 +572,14 @@ function showPrivateProjectMessage(project) {
         }
     };
 } 
+
+// Dark mode toggle
+const themeToggle = document.querySelector('.theme-toggle');
+themeToggle.addEventListener('click', () => {
+    document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', document.body.dataset.theme);
+});
+
+// Check for saved theme
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.body.dataset.theme = savedTheme; 
