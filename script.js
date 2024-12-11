@@ -573,13 +573,25 @@ function showPrivateProjectMessage(project) {
     };
 } 
 
-// Dark mode toggle
+// Dark mode toggle with proper initialization
 const themeToggle = document.querySelector('.theme-toggle');
-themeToggle.addEventListener('click', () => {
-    document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('theme', document.body.dataset.theme);
-});
+const icon = themeToggle.querySelector('i');
+
+// Function to set theme
+function setTheme(theme) {
+    document.body.dataset.theme = theme;
+    localStorage.setItem('theme', theme);
+    // Update icon
+    icon.classList.remove('fa-sun', 'fa-moon');
+    icon.classList.add(theme === 'dark' ? 'fa-sun' : 'fa-moon');
+}
 
 // Check for saved theme
 const savedTheme = localStorage.getItem('theme') || 'light';
-document.body.dataset.theme = savedTheme; 
+setTheme(savedTheme);
+
+// Toggle theme on click
+themeToggle.addEventListener('click', () => {
+    const newTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+}); 
