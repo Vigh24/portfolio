@@ -30,3 +30,22 @@ My personal portfolio website showcasing my projects and skills.
 ## Setup and Installation
 
 1. Clone the repository: 
+git clone https://github.com/Vigh24/portfolio.git
+cd portfolio
+
+3. Open `index.html` in your browser or use a local server.
+
+## Project Structure
+portfolio/
+├── index.html
+├── styles.css
+├── script.js
+├── README.md
+└── .gitignore
+
+
+## Contact
+
+- Email: vigneshpatil2486@gmail.com
+- LinkedIn: [Vighnesh Patil](www.linkedin.com/in/vighneshpatil2410)
+- Portfolio: [Live Demo](https://vighnesh-patil.vercel.app)
