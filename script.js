@@ -165,24 +165,48 @@ function init() {
     new TypeWriter(txtElement, words, wait);
 }
 
-// Add particle background
+// Add particle background with enhanced effects
 particlesJS('particles-js', {
     particles: {
-        number: { value: 80 },
-        color: { value: '#007bff' },
+        number: {
+            value: 80,
+            density: {
+                enable: true,
+                value_area: 800
+            }
+        },
+        color: {
+            value: '#007bff'
+        },
         shape: {
             type: 'circle',
-            stroke: { width: 0 },
-            polygon: { nb_sides: 5 }
+            stroke: {
+                width: 0,
+                color: '#007bff'
+            },
+            polygon: {
+                nb_sides: 5
+            }
         },
         opacity: {
             value: 0.5,
             random: true,
-            animation: { enable: true, speed: 1 }
+            anim: {
+                enable: true,
+                speed: 1,
+                opacity_min: 0.1,
+                sync: false
+            }
         },
         size: {
             value: 3,
-            random: true
+            random: true,
+            anim: {
+                enable: true,
+                speed: 2,
+                size_min: 0.1,
+                sync: false
+            }
         },
         line_linked: {
             enable: true,
@@ -196,7 +220,14 @@ particlesJS('particles-js', {
             speed: 2,
             direction: 'none',
             random: true,
-            out_mode: 'bounce'
+            straight: false,
+            out_mode: 'bounce',
+            bounce: true,
+            attract: {
+                enable: true,
+                rotateX: 600,
+                rotateY: 1200
+            }
         }
     },
     interactivity: {
@@ -204,15 +235,39 @@ particlesJS('particles-js', {
         events: {
             onhover: {
                 enable: true,
-                mode: 'repulse'
+                mode: ['grab', 'bubble']
             },
             onclick: {
                 enable: true,
-                mode: 'push'
+                mode: ['push', 'repulse']
+            },
+            resize: true
+        },
+        modes: {
+            grab: {
+                distance: 140,
+                line_linked: {
+                    opacity: 0.8
+                }
+            },
+            bubble: {
+                distance: 200,
+                size: 6,
+                duration: 0.3,
+                opacity: 0.8,
+                speed: 3
+            },
+            repulse: {
+                distance: 200,
+                duration: 0.4
+            },
+            push: {
+                particles_nb: 4
             }
         }
-    }
-}); 
+    },
+    retina_detect: true
+});
 
 const projectDetails = {
     'iot-dashboard': {
@@ -606,6 +661,9 @@ function updateParticleColors(theme) {
         particles.color.value = color;
         particles.line_linked.color = color;
         particles.line_linked.opacity = opacity;
-        particles.move.speed = theme === 'dark' ? 1.5 : 2; // Slightly slower in dark mode
+        particles.move.speed = theme === 'dark' ? 1.5 : 2;
+        
+        // Update existing particles
+        window.pJSDom[0].pJS.fn.particlesRefresh();
     }
 } 
