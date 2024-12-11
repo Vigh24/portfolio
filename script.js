@@ -429,3 +429,43 @@ function showProjectDetails(details) {
         }
     };
 } 
+
+function showPrivateProjectMessage() {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content private-project-notice">
+            <span class="close-modal">&times;</span>
+            <div class="project-details">
+                <h3>Private Project Repository</h3>
+                <div class="project-details-section">
+                    <p>This VoIP Softphone Application was developed as part of a company project and the source code is maintained under a confidential agreement.</p>
+                    <p>While I cannot share the actual code, I'm happy to discuss:</p>
+                    <ul>
+                        <li>The technical architecture and design decisions</li>
+                        <li>Challenges faced and solutions implemented</li>
+                        <li>Technologies and frameworks used</li>
+                        <li>My role and contributions to the project</li>
+                    </ul>
+                    <p>Feel free to reach out through the contact form to discuss more about this project!</p>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    setTimeout(() => modal.style.display = 'flex', 10);
+
+    const closeBtn = modal.querySelector('.close-modal');
+    closeBtn.onclick = () => {
+        modal.style.display = 'none';
+        modal.remove();
+    };
+
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            modal.remove();
+        }
+    };
+} 

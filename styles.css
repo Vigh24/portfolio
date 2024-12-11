@@ -764,3 +764,23 @@ footer {
     position: absolute;
     left: 0;
 }
+
+.private-project-notice {
+    max-width: 500px;
+}
+
+.private-project-notice ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.private-project-notice li {
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+.private-project-notice p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: #444;
+}
