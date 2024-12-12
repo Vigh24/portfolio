@@ -740,37 +740,43 @@ let scrollPattern = [];
 const SCROLL_SECRET = ['up', 'up', 'down', 'down'];
 let lastScrollTime = 0;
 let lastScrollY = window.scrollY;
-const SCROLL_TIMEOUT = 1500; // 1.5 seconds
+const SCROLL_TIMEOUT = 2000; // 2 seconds
 let isScrolling;
+let scrollThreshold = 50; // Minimum scroll distance to count as a direction change
 
 window.addEventListener('scroll', () => {
     const now = Date.now();
     const currentScrollY = window.scrollY;
-    const scrollDir = currentScrollY > lastScrollY ? 'down' : 'up';
+    const scrollDiff = currentScrollY - lastScrollY;
+    
+    // Only count as a direction if scrolled more than threshold
+    let scrollDir = null;
+    if (Math.abs(scrollDiff) > scrollThreshold) {
+        scrollDir = scrollDiff > 0 ? 'down' : 'up';
+        
+        if (now - lastScrollTime < SCROLL_TIMEOUT) {
+            scrollPattern.push(scrollDir);
+            if (scrollPattern.length > SCROLL_SECRET.length) {
+                scrollPattern.shift();
+            }
+            
+            console.log('Current Pattern:', scrollPattern);
+            
+            if (arraysEqual(scrollPattern, SCROLL_SECRET)) {
+                console.log('Easter egg triggered!');
+                showEasterEggModal();
+                scrollPattern = [];
+            }
+        } else {
+            scrollPattern = [scrollDir];
+        }
+        
+        lastScrollTime = now;
+        lastScrollY = currentScrollY;
+    }
     
     // Clear the timeout
     clearTimeout(isScrolling);
-    
-    // Add visual feedback for debugging
-    console.log('Scroll Direction:', scrollDir);
-    console.log('Pattern:', scrollPattern);
-    
-    if (now - lastScrollTime < SCROLL_TIMEOUT) {
-        scrollPattern.push(scrollDir);
-        if (scrollPattern.length > SCROLL_SECRET.length) {
-            scrollPattern.shift();
-        }
-        
-        if (arraysEqual(scrollPattern, SCROLL_SECRET)) {
-            showEasterEggModal();
-            scrollPattern = [];
-        }
-    } else {
-        scrollPattern = [scrollDir];
-    }
-    
-    lastScrollTime = now;
-    lastScrollY = currentScrollY;
     
     // Set a timeout to reset pattern if no scroll occurs within timeout
     isScrolling = setTimeout(() => {
