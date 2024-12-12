@@ -646,10 +646,33 @@ const savedTheme = localStorage.getItem('theme') || 'light';
 setTheme(savedTheme);
 
 // Toggle theme on click
+let togglePattern = [];
+const SECRET_PATTERN = [true, true, false, true, false]; // Light-Light-Dark-Light-Dark
+const PATTERN_TIMEOUT = 3000; // 3 seconds
+
 themeToggle.addEventListener('change', () => {
     const newTheme = themeToggle.checked ? 'light' : 'dark';
     setTheme(newTheme);
-}); 
+    
+    togglePattern.push(themeToggle.checked);
+    if (togglePattern.length > SECRET_PATTERN.length) {
+        togglePattern.shift();
+    }
+    
+    if (arraysEqual(togglePattern, SECRET_PATTERN)) {
+        showEasterEggModal();
+        togglePattern = [];
+    }
+    
+    // Reset pattern after timeout
+    setTimeout(() => {
+        togglePattern = [];
+    }, PATTERN_TIMEOUT);
+});
+
+function arraysEqual(a, b) {
+    return a.length === b.length && a.every((val, index) => val === b[index]);
+}
 
 // Update particle colors based on theme with enhanced effects
 function updateParticleColors(theme) {
@@ -697,3 +720,84 @@ const githubActivity = {
 document.querySelectorAll('.floating-icons i').forEach((icon, index) => {
     icon.style.animationDelay = `${index * 0.5}s`;
 });
+
+let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konamiIndex = 0;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+            showEasterEggModal();
+            konamiIndex = 0;
+        }
+    } else {
+        konamiIndex = 0;
+    }
+});
+
+let scrollPattern = [];
+const SCROLL_SECRET = ['up', 'up', 'down', 'down'];
+let lastScrollTime = 0;
+let lastScrollY = window.scrollY;
+const SCROLL_TIMEOUT = 1500; // 1.5 seconds
+
+window.addEventListener('scroll', () => {
+    const now = Date.now();
+    const scrollDir = window.scrollY > lastScrollY ? 'down' : 'up';
+    
+    if (now - lastScrollTime < SCROLL_TIMEOUT) {
+        scrollPattern.push(scrollDir);
+        if (scrollPattern.length > SCROLL_SECRET.length) {
+            scrollPattern.shift();
+        }
+        
+        if (arraysEqual(scrollPattern, SCROLL_SECRET)) {
+            showEasterEggModal();
+            scrollPattern = [];
+        }
+    } else {
+        scrollPattern = [scrollDir];
+    }
+    
+    lastScrollTime = now;
+    lastScrollY = window.scrollY;
+});
+
+function showEasterEggModal() {
+    const modal = document.querySelector('.easter-egg-modal');
+    modal.style.display = 'flex';
+    updateTimeAlive();
+    
+    // Add close modal functionality
+    const closeBtn = modal.querySelector('.close-modal');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            modal.style.display = 'none';
+        });
+    }
+    
+    // Close when clicking outside the modal
+    modal.addEventListener('mousedown', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+function updateTimeAlive() {
+    const now = new Date().getTime();
+    const LAUNCH_DATE = new Date('2024-12-11 18:00:00 GMT+0530').getTime();
+    const timeDiff = now - LAUNCH_DATE;
+    
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    
+    const timeAliveElement = document.getElementById('timeAlive');
+    timeAliveElement.textContent = `${days}d ${hours}h ${minutes}m`;
+}
+
+// Update time every minute
+setInterval(updateTimeAlive, 60000);
