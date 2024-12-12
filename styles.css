@@ -27,6 +27,7 @@ body {
     overflow-x: hidden;
     background-color: var(--bg-color);
     color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Navbar Styles */
@@ -223,7 +224,7 @@ h2 {
     border-radius: 20px;
     padding: 2rem;
     box-shadow: var(--card-shadow);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -246,7 +247,12 @@ h2 {
 }
 
 .project-card:hover {
-    transform: rotateY(180deg);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .project-card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 .project-card h3 {
@@ -1532,4 +1538,43 @@ body {
 .floating-tech-icons {
     position: absolute;
     animation: float 3s ease-in-out infinite;
+}
+
+.floating-icons i {
+    animation: float 3s ease-in-out infinite;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.floating-icons i:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.burger {
+    transition: transform 0.3s ease;
+}
+
+.burger.active {
+    transform: rotate(90deg);
 }

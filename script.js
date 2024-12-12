@@ -17,16 +17,16 @@ burger.addEventListener('click', () => {
     // Toggle Nav
     nav.classList.toggle('nav-active');
     
-    // Animate Links
+    // Animate Links with stagger effect
     navLinks.forEach((link, index) => {
         if (link.style.animation) {
             link.style.animation = '';
         } else {
-            link.style.animation = `fadeInUp 0.5s ease forwards ${index / 7 + 0.3}s`;
+            link.style.animation = `slideInRight 0.5s ease forwards ${index / 7 + 0.2}s`;
         }
     });
     
-    // Burger Animation
+    // Smooth burger animation
     burger.classList.toggle('active');
 });
 
