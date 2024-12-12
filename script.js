@@ -741,10 +741,19 @@ const SCROLL_SECRET = ['up', 'up', 'down', 'down'];
 let lastScrollTime = 0;
 let lastScrollY = window.scrollY;
 const SCROLL_TIMEOUT = 1500; // 1.5 seconds
+let isScrolling;
 
 window.addEventListener('scroll', () => {
     const now = Date.now();
-    const scrollDir = window.scrollY > lastScrollY ? 'down' : 'up';
+    const currentScrollY = window.scrollY;
+    const scrollDir = currentScrollY > lastScrollY ? 'down' : 'up';
+    
+    // Clear the timeout
+    clearTimeout(isScrolling);
+    
+    // Add visual feedback for debugging
+    console.log('Scroll Direction:', scrollDir);
+    console.log('Pattern:', scrollPattern);
     
     if (now - lastScrollTime < SCROLL_TIMEOUT) {
         scrollPattern.push(scrollDir);
@@ -761,7 +770,13 @@ window.addEventListener('scroll', () => {
     }
     
     lastScrollTime = now;
-    lastScrollY = window.scrollY;
+    lastScrollY = currentScrollY;
+    
+    // Set a timeout to reset pattern if no scroll occurs within timeout
+    isScrolling = setTimeout(() => {
+        scrollPattern = [];
+        console.log('Scroll Pattern Reset');
+    }, SCROLL_TIMEOUT);
 });
 
 function showEasterEggModal() {
