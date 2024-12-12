@@ -899,6 +899,30 @@ footer {
     position: relative;
     border: 1px solid var(--border-color);
     box-shadow: var(--card-shadow);
+    
+    /* Scrollbar styling for Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #007bff rgba(0, 123, 255, 0.1);
+}
+
+/* Scrollbar styling for Chrome/Safari/Edge */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #007bff;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
 }
 
 .project-details h3 {
@@ -936,13 +960,45 @@ footer {
 }
 
 .close-modal {
-    color: var(--text-color);
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
+    position: sticky;
+    top: 0;
+    right: 0;
+    float: right;
+    width: 32px;
+    height: 32px;
+    background: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    z-index: 1;
+}
+
+.close-modal::before,
+.close-modal::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background: white;
+    transform-origin: center;
+}
+
+.close-modal::before {
+    transform: rotate(45deg);
+}
+
+.close-modal::after {
+    transform: rotate(-45deg);
 }
 
 .close-modal:hover {
-    opacity: 1;
+    background: #0056b3;
+    transform: rotate(90deg);
 }
 
 /* Dark mode specific adjustments */
