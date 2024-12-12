@@ -700,7 +700,7 @@ document.querySelectorAll('.floating-icons i').forEach((icon, index) => {
 
 let homeClickCount = 0;
 const CLICK_THRESHOLD = 6;
-const LAUNCH_DATE = new Date('2024-02-11 18:00:00 GMT+0530').getTime(); // Feb 11, 2024, 6:00 PM IST
+const LAUNCH_DATE = new Date('2024-12-11 18:00:00 GMT+0530').getTime(); // Dec 11, 2024, 6:00 PM IST
 const BUGS_FIXED = 38;  // Your actual bug count
 const GIT_COMMITS = 50; // Your actual commit count
 
