@@ -647,7 +647,7 @@ setTheme(savedTheme);
 
 // Toggle theme on click
 let togglePattern = [];
-const SECRET_PATTERN = [true, true, false, true, false]; // Light-Light-Dark-Light-Dark
+const SECRET_PATTERN = [true, false, true, false, true, false]; // Light-Dark-Light-Dark-Light-Dark
 const PATTERN_TIMEOUT = 3000; // 3 seconds
 
 themeToggle.addEventListener('change', () => {
@@ -659,7 +659,10 @@ themeToggle.addEventListener('change', () => {
         togglePattern.shift();
     }
     
+    console.log('Theme Pattern:', togglePattern);
+    
     if (arraysEqual(togglePattern, SECRET_PATTERN)) {
+        console.log('Easter egg triggered!');
         showEasterEggModal();
         togglePattern = [];
     }
@@ -733,38 +736,6 @@ document.addEventListener('keydown', (e) => {
         }
     } else {
         konamiIndex = 0;
-    }
-});
-
-let lastScrolls = [];
-const SCROLL_PATTERN = ['up', 'up', 'down', 'down'];
-let lastWheelTime = Date.now();
-
-window.addEventListener('wheel', (event) => {
-    const now = Date.now();
-    const direction = event.deltaY < 0 ? 'up' : 'down';
-    
-    // If it's been more than 2 seconds since last wheel event, reset the pattern
-    if (now - lastWheelTime > 2000) {
-        lastScrolls = [];
-    }
-    
-    lastScrolls.push(direction);
-    lastWheelTime = now;
-    
-    // Keep only the last 4 scrolls
-    if (lastScrolls.length > 4) {
-        lastScrolls.shift();
-    }
-    
-    console.log('Current Pattern:', lastScrolls);
-    
-    // Check if pattern matches
-    if (lastScrolls.length === 4 && 
-        arraysEqual(lastScrolls, SCROLL_PATTERN)) {
-        console.log('Easter egg triggered!');
-        showEasterEggModal();
-        lastScrolls = [];
     }
 });
 
