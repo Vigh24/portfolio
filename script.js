@@ -697,3 +697,49 @@ const githubActivity = {
 document.querySelectorAll('.floating-icons i').forEach((icon, index) => {
     icon.style.animationDelay = `${index * 0.5}s`;
 });
+
+let homeClickCount = 0;
+const CLICK_THRESHOLD = 6;
+const LAUNCH_DATE = new Date('2024-01-20').getTime(); // Update this to your actual launch date
+
+// Add click counter to home link
+document.querySelector('a[href="#home"]').addEventListener('click', (e) => {
+    homeClickCount++;
+    
+    if (homeClickCount === CLICK_THRESHOLD) {
+        showEasterEggModal();
+        homeClickCount = 0; // Reset counter
+    }
+});
+
+function showEasterEggModal() {
+    const modal = document.querySelector('.easter-egg-modal');
+    modal.style.display = 'flex';
+    updateTimeAlive();
+    
+    // Close modal functionality
+    modal.querySelector('.close-modal').onclick = () => {
+        modal.style.display = 'none';
+    };
+    
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    };
+}
+
+function updateTimeAlive() {
+    const now = new Date().getTime();
+    const timeDiff = now - LAUNCH_DATE;
+    
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    
+    const timeAliveElement = document.getElementById('timeAlive');
+    timeAliveElement.textContent = `${days}d ${hours}h ${minutes}m`;
+}
+
+// Update time every minute
+setInterval(updateTimeAlive, 60000);
