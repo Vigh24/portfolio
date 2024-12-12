@@ -736,53 +736,36 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-let scrollPattern = [];
-const SCROLL_SECRET = ['up', 'up', 'down', 'down'];
-let lastScrollTime = 0;
-let lastScrollY = window.scrollY;
-const SCROLL_TIMEOUT = 2000; // 2 seconds
-let isScrolling;
-let scrollThreshold = 50; // Minimum scroll distance to count as a direction change
+let lastScrolls = [];
+const SCROLL_PATTERN = ['up', 'up', 'down', 'down'];
+let lastWheelTime = Date.now();
 
-window.addEventListener('scroll', () => {
+window.addEventListener('wheel', (event) => {
     const now = Date.now();
-    const currentScrollY = window.scrollY;
-    const scrollDiff = currentScrollY - lastScrollY;
+    const direction = event.deltaY < 0 ? 'up' : 'down';
     
-    // Only count as a direction if scrolled more than threshold
-    let scrollDir = null;
-    if (Math.abs(scrollDiff) > scrollThreshold) {
-        scrollDir = scrollDiff > 0 ? 'down' : 'up';
-        
-        if (now - lastScrollTime < SCROLL_TIMEOUT) {
-            scrollPattern.push(scrollDir);
-            if (scrollPattern.length > SCROLL_SECRET.length) {
-                scrollPattern.shift();
-            }
-            
-            console.log('Current Pattern:', scrollPattern);
-            
-            if (arraysEqual(scrollPattern, SCROLL_SECRET)) {
-                console.log('Easter egg triggered!');
-                showEasterEggModal();
-                scrollPattern = [];
-            }
-        } else {
-            scrollPattern = [scrollDir];
-        }
-        
-        lastScrollTime = now;
-        lastScrollY = currentScrollY;
+    // If it's been more than 2 seconds since last wheel event, reset the pattern
+    if (now - lastWheelTime > 2000) {
+        lastScrolls = [];
     }
     
-    // Clear the timeout
-    clearTimeout(isScrolling);
+    lastScrolls.push(direction);
+    lastWheelTime = now;
     
-    // Set a timeout to reset pattern if no scroll occurs within timeout
-    isScrolling = setTimeout(() => {
-        scrollPattern = [];
-        console.log('Scroll Pattern Reset');
-    }, SCROLL_TIMEOUT);
+    // Keep only the last 4 scrolls
+    if (lastScrolls.length > 4) {
+        lastScrolls.shift();
+    }
+    
+    console.log('Current Pattern:', lastScrolls);
+    
+    // Check if pattern matches
+    if (lastScrolls.length === 4 && 
+        arraysEqual(lastScrolls, SCROLL_PATTERN)) {
+        console.log('Easter egg triggered!');
+        showEasterEggModal();
+        lastScrolls = [];
+    }
 });
 
 function showEasterEggModal() {
