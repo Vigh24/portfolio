@@ -8,6 +8,10 @@
   ],
   "routes": [
     {
+      "src": "/.well-known/vercel/toolbar",
+      "dest": "/index.html"
+    },
+    {
       "src": "/project-images/(.*)",
       "dest": "/project-images/$1"
     },
@@ -26,5 +30,7 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
 } 
